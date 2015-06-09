@@ -100,7 +100,7 @@ public class PopularMemesEditorActivity extends Activity {
 
     }
 
-    
+
 
     public static Bitmap screenView(View v, int width, int height) {
         Bitmap screenshot = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
