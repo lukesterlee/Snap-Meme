@@ -24,7 +24,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 
-public class PopMemeEditor extends Activity {
+public class PopularMemesEditorActivity extends Activity {
     // VIEW ELEMENTS
     private ImageView ivCustomPopular;
     private Bitmap bitmap;
@@ -99,6 +99,8 @@ public class PopMemeEditor extends Activity {
         // TODO SHARE BUTTON AND SAVE BUTTON
 
     }
+
+    
 
     public static Bitmap screenView(View v, int width, int height) {
         Bitmap screenshot = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);

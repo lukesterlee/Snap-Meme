@@ -37,11 +37,11 @@
             android:label="Vanilla" >
         </activity>
         <activity
-            android:name=".PopMemes"
+            android:name=".PopularMemesActivity"
             android:label="@string/title_activity_pop_memes" >
         </activity>
         <activity
-            android:name=".PopMemeEditor"
+            android:name=".PopularMemesEditorActivity"
             android:label="@string/title_activity_pop_meme_editor" >
         </activity>
     </application>

@@ -13,7 +13,7 @@
         android:id="@+id/vanilla_top_text"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:text="BOUGHT A LEASH"
+
         android:textColor="#ffffff"
         android:textSize="50dp"
         android:layout_weight="1"
@@ -24,25 +24,35 @@
         android:id="@+id/vanilla_bottom_text"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:text="HAS A CAT"
+
         android:textColor="#ffffff"
         android:textSize="50dp"
         android:layout_weight="0.87"
         android:gravity="center|bottom"/>
 
-    <Button
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="New Button"
-        android:id="@+id/button"
-        android:layout_gravity="right" />
+        android:orientation="horizontal">
 
-    <Button
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Share"
-        android:id="@+id/btShare" />
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Save"
+            android:id="@+id/button_save"
+            android:layout_gravity="right" />
+
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Share"
+            android:id="@+id/btShare" />
+
+
+        </LinearLayout>
+
+
 
 </LinearLayout>

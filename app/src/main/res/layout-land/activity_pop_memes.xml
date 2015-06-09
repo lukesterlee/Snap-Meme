@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="gmsyrimis.c4q.nyc.cammy.PopMemes"
+    tools:context="gmsyrimis.c4q.nyc.cammy.PopularMemesActivity"
     android:orientation="vertical"
     android:background="@drawable/backgroundfinal">
 <ListView

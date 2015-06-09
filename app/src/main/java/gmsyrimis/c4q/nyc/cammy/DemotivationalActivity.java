@@ -25,7 +25,7 @@ public class DemotivationalActivity extends Activity {
 
     //ELEMENTS
     private ImageView pictureHolder;
-    private Bitmap bitmap;
+    private Bitmap photoBitmap;
     private LinearLayout layoutHolder;
     private Button saveBTN;
     private Button shareBTN;
@@ -68,12 +68,12 @@ public class DemotivationalActivity extends Activity {
         topEditText.setText(topString);
         bottomEditText.setText(bottomString);
         try {
-            bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), Uri.parse(imageUri));
+            photoBitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), Uri.parse(imageUri));
         } catch (IOException e) {
             e.printStackTrace();
         }
-        bitmap = Bitmap.createScaledBitmap(bitmap, 330, 210, true);
-        pictureHolder.setImageDrawable(new FakeBitmapDrawable(bitmap, 0));
+        photoBitmap = Bitmap.createScaledBitmap(photoBitmap, 330, 210, true);
+        pictureHolder.setImageDrawable(new FakeBitmapDrawable(photoBitmap, 0));
 
         // SAVE BUTTON
         saveBTN.setOnClickListener(new View.OnClickListener() {

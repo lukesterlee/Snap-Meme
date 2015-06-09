@@ -2,65 +2,87 @@ package gmsyrimis.c4q.nyc.cammy;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
-
-import java.io.IOException;
 
 
 public class SelectStyleActivity extends Activity {
 
-    ImageView chooseDemotivational;
-    ImageView chooseVanilla;
+    ImageView demotivationalButton;
+    ImageView vanillaButton;
 
-    private String imageUri = "";
+    private String filePath = "";
 
-    public static String IMAGE_URI_KEY = "uri";
+    public static final String FILE_PATH_KEY = "file_path";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_style);
 
+        initializeViews();
+
+        restoreFromSavedInstanceState(savedInstanceState);
+
+    }
+
+    private void restoreFromSavedInstanceState(Bundle savedInstanceState) {
         if (savedInstanceState == null) {
             Bundle bundle = getIntent().getExtras();
-            if (bundle.getString(IMAGE_URI_KEY) != null) {
-                imageUri = bundle.getString(IMAGE_URI_KEY);
+            if (bundle.getString(FILE_PATH_KEY) != null) {
+                filePath = bundle.getString(FILE_PATH_KEY);
             }
         } else {
-            imageUri = savedInstanceState.getString(IMAGE_URI_KEY);
+            filePath = savedInstanceState.getString(FILE_PATH_KEY);
         }
+    }
 
-        chooseDemotivational = (ImageView) findViewById(R.id.choose_demotivational);
-        chooseDemotivational.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent gotoDemotivational = new Intent(SelectStyleActivity.this, DemotivationalActivity.class);
-                gotoDemotivational.putExtra(IMAGE_URI_KEY, imageUri);
-                startActivity(gotoDemotivational);
-            }
-        });
-        chooseVanilla = (ImageView) findViewById(R.id.choose_vanilla);
-        chooseVanilla.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent gotoVanilla = new Intent(SelectStyleActivity.this, VanillaActivity.class);
-                gotoVanilla.putExtra(IMAGE_URI_KEY, imageUri);
-                startActivity(gotoVanilla);
-            }
-        });
+    private void initializeViews() {
+        demotivationalButton = (ImageView) findViewById(R.id.choose_demotivational);
+        vanillaButton = (ImageView) findViewById(R.id.choose_vanilla);
+    }
+
+    private void setUpListeners(boolean isResumed) {
+        if (!isResumed) {
+            demotivationalButton.setOnClickListener(null);
+            vanillaButton.setOnClickListener(null);
+        } else {
+            demotivationalButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent gotoDemotivational = new Intent(SelectStyleActivity.this, DemotivationalActivity.class);
+                    gotoDemotivational.putExtra(FILE_PATH_KEY, filePath);
+                    startActivity(gotoDemotivational);
+                }
+            });
+
+            vanillaButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent gotoVanilla = new Intent(SelectStyleActivity.this, VanillaActivity.class);
+                    gotoVanilla.putExtra(FILE_PATH_KEY, filePath);
+                    startActivity(gotoVanilla);
+                }
+            });
+        }
     }
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putString(IMAGE_URI_KEY, imageUri);
+        outState.putString(FILE_PATH_KEY, filePath);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setUpListeners(true);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        setUpListeners(false);
     }
 }

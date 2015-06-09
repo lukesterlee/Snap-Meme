@@ -12,7 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 
-public class PopMemes extends Activity {
+public class PopularMemesActivity extends Activity {
     public static String IMAGE_URI_KEY = "uri";
     private ListView memeListView;
     private String imageUri = "";
@@ -49,7 +49,7 @@ public class PopMemes extends Activity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 int meme = (Integer) parent.getItemAtPosition(position);
-                Intent gotoPopMeme = new Intent(PopMemes.this, PopMemeEditor.class);
+                Intent gotoPopMeme = new Intent(PopularMemesActivity.this, PopularMemesEditorActivity.class);
                 imageUri += meme;
                 gotoPopMeme.putExtra(IMAGE_URI_KEY, imageUri);
                 startActivity(gotoPopMeme);
