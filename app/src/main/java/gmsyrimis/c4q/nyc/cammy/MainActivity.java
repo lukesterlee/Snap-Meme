@@ -4,9 +4,14 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.view.View;
 import android.widget.ImageView;
+
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class MainActivity extends Activity {
 
@@ -14,6 +19,8 @@ public class MainActivity extends Activity {
     ImageView cameraButton;
     ImageView galleryButton;
     ImageView popularMemesButton;
+
+    private Uri imageUri;
 
     // KEY VALUE PAIRS
     private String filePath = "";
@@ -67,6 +74,10 @@ public class MainActivity extends Activity {
 
     private void launchCamera() {
         Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        String imageFileName = new SimpleDateFormat("yyyy-MM-dd HH.mm.ss").format(new Date());
+        File photoFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), imageFileName + ".jpeg");
+        imageUri = Uri.fromFile(photoFile);
+        cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
         startActivityForResult(cameraIntent, REQUEST_CODE_CAMERA);
     }
 
@@ -97,11 +108,16 @@ public class MainActivity extends Activity {
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         try {
+            // from Camera app
             if (requestCode == REQUEST_CODE_CAMERA && resultCode == RESULT_OK) {
-                Uri selectedImage = data.getData();
+                Uri selectedImage = imageUri;
+                addPictureToGallery(selectedImage);
                 filePath = selectedImage.toString();
                 gotoSelectStyle();
-            } else if (requestCode == REQUEST_CODE_GALLERY && resultCode == RESULT_OK && null != data) {
+            }
+
+            // from Gallery app
+            else if (requestCode == REQUEST_CODE_GALLERY && resultCode == RESULT_OK && null != data) {
                 Uri selectedImage = data.getData();
                 filePath = selectedImage.toString();
                 gotoSelectStyle();
@@ -120,6 +136,12 @@ public class MainActivity extends Activity {
     protected void onPause() {
         super.onPause();
         setUpListeners(false);
+    }
+
+    private void addPictureToGallery(Uri uri) {
+        Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+        mediaScanIntent.setData(uri);
+        this.sendBroadcast(mediaScanIntent);
     }
 }
 
